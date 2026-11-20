@@ -32,9 +32,12 @@ ORDER BY fee_id
 def load_policy_documents() -> list[Document]:
     docs = []
     for path in sorted(config.RAW_DATA_DIR.glob("*.md")):
+        text = path.read_text(encoding="utf-8")
+        if not text.strip():
+            raise ValueError(f"Policy document is empty: {path.name}")
         docs.append(
             Document(
-                page_content=path.read_text(encoding="utf-8"),
+                page_content=text,
                 metadata={"source_type": "policy_document", "source": path.name},
             )
         )
