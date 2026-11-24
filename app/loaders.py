@@ -16,7 +16,7 @@ from app import config
 ACTIVE_PRODUCTS_SQL = """
 SELECT * FROM products
 WHERE effective_from <= :today
-  AND (effective_to IS NULL OR effective_to >= :today)
+   AND (effective_to IS NULL OR effective_to >= :today)
 ORDER BY product_id
 """
 
